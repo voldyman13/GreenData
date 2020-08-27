@@ -2,6 +2,10 @@ package com.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.NoSuchElementException;
 
 /**
  * Abstract class representation of a Page in the UI. Page object pattern
@@ -9,6 +13,8 @@ import org.openqa.selenium.WebDriver;
 public abstract class Page {
 
   protected WebDriver driver;
+
+
 
   /*
    * Constructor injecting the WebDriver interface
@@ -19,32 +25,29 @@ public abstract class Page {
     this.driver = driver;
   }
 
-    public String getTitle() {
+    public String getTitle() { return driver.getTitle(); }
 
-        return driver.getTitle();
+    public void waitUntilPageIsLoaded(int time, By locator){
+        WebDriverWait wait = new WebDriverWait(driver, time);
+        wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
-    public void getText(){
-      String title = getTitle();
-        System.out.println("Title: " + title);
-    }
-    public void openSite(String url){
-        driver.get(url);
-    }
-    public void inputLogin(String username){
-        type(By.id("username"), username);
-    }
-    public void inputPassword(String password){
-        type(By.id("password"), password);
-    }
-    public void submit(){
-        click(By.id("login_button"));
-    }
-    public void click(By locator) {
-        driver.findElement(locator).click();
-    }
-    protected void type(By locator, String text) {
+    public void printTitle(){ System.out.println("Title: " + getTitle()); }
+    public void getText(){ }
+    public void click(By locator) { driver.findElement(locator).click(); }
+    public void type(By locator, String text) {
         click(locator);
         driver.findElement(locator).clear();
         driver.findElement(locator).sendKeys(text);
     }
+    public boolean isElementPresent(By locator) {
+        try {
+            driver.findElement(locator);
+            return true;
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
+    public void consoleLogBefore(String methodName){ System.out.println(methodName +" started... "); }
+    public void consoleLogAfter(String methodName){ System.out.println(methodName +" finished. "); }
+
 }
