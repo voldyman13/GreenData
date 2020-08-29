@@ -11,6 +11,7 @@
     <aspectj.version>1.8.10</aspectj.version>
     <allure-testng.version>2.6.0</allure-testng.version>
   </properties>
+
   <dependencies>
 
     <dependency>
@@ -117,7 +118,6 @@
       </plugin>
 
     </plugins>
-
   </build>
 
   <!-- profiles -->

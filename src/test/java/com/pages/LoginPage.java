@@ -1,12 +1,19 @@
 package com.pages;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.testng.Assert;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 /**
  * Sample page
@@ -32,6 +39,8 @@ public class LoginPage extends PageBase {
   private WebElement errorWarning;
   @FindBy(className ="svg-bg-path")
   private WebElement icon;
+  @FindBy(id = "userName")
+  private WebElement userName;
 
   public LoginPage(WebDriver webDriver) { super(webDriver); }
 
@@ -51,9 +60,26 @@ public class LoginPage extends PageBase {
   public void clickOnEnterButton(){ enterButton.click(); }
 
   @Step
-  public void errorAlertConfirmation(){
+  public void errorMessageCheck(){
     Boolean check = isElementPresent(errorWarning);
     Assert.assertTrue(check);
   }
 
+  @Step
+  public void userNameCheck(){
+    Boolean check = isElementPresent(userName);
+    Assert.assertTrue(check);
+  }
+
+  @Step
+  public void openNewTab(String url) throws AWTException {
+    Robot robot = new Robot();
+    robot.keyPress(KeyEvent.VK_CONTROL);
+    robot.keyPress(KeyEvent.VK_T);
+    robot.keyRelease(KeyEvent.VK_CONTROL);
+    robot.keyRelease(KeyEvent.VK_T);
+    ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+    driver.switchTo().window(tabs.get(1));
+    driver.get(url);
+  }
 }
