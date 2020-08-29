@@ -1,16 +1,13 @@
 package com;
 
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-/**
- * Loads test suite configuration from resource files.
- */
+
 public class SuiteConfiguration {
 
   private static final String DEBUG_PROPERTIES = "/debug.properties";
