@@ -40,42 +40,55 @@ public class LoginPage extends PageBase {
   private WebElement currentAccount;
   @FindBy(id = "error")
   private WebElement errorWarning;
-  @FindBy(className ="svg-bg-path")
+  @FindBy(className = "svg-bg-path")
   private WebElement icon;
   @FindBy(id = "userName")
   private WebElement userName;
 
-  public LoginPage(WebDriver webDriver) { super(webDriver); }
+  public LoginPage(WebDriver webDriver) {
+    super(webDriver);
+  }
 
   @Step
-  public void openSite(String url){ driver.get(url); }
+  public void openSite(String url) {
+    driver.get(url);
+  }
 
   @Step("Enter login: {value}")
-  public void inputLogin(String username){ type(loginField, username); }
+  public void inputLogin(String username) {
+    type(loginField, username);
+  }
 
   @Step("Enter password: {value}")
-  public void inputPassword(String password){ type(passwordField, password); }
+  public void inputPassword(String password) {
+    type(passwordField, password);
+  }
 
   @Step
-  public void checkInRememberMe(){rememberCheckbox.click(); }
+  public void checkInRememberMe() {
+    rememberCheckbox.click();
+  }
 
   @Step
-  public void clickOnEnterButton(){ enterButton.click(); }
+  public void clickOnEnterButton() {
+    enterButton.click();
+  }
 
   @Step
-  public void errorMessageCheck(){
+  public void errorMessageCheck() {
     Boolean check = isElementPresent(errorWarning);
     Assert.assertTrue(check);
   }
 
   @Step
-  public void userNameCheck(){
-    Boolean check = isElementPresent(userName);
-    Assert.assertTrue(check);
+  public void userNameCheck(String username) {
+    String user = userName.getText();
+    System.out.println("User: " + userName.getText());
+    Assert.assertEquals(user, username, "Wrong user name");
   }
 
   @Step
-  public void openNewTab(String url) throws AWTException {
+  public void openSiteInNewTab(String url) throws AWTException {
     Robot robot = new Robot();
     robot.keyPress(KeyEvent.VK_CONTROL);
     robot.keyPress(KeyEvent.VK_T);
@@ -91,4 +104,15 @@ public class LoginPage extends PageBase {
     WebDriverWait wait = new WebDriverWait(driver, timeout);
     wait.until(ExpectedConditions.elementToBeClickable(element));
   }
+
+  @Step
+  public void clickOnAnotherAccountButton() {
+    anotherAccount.click();
+  }
+
+  @Step
+  public void clickOnCurrentAccountButton() {
+    currentAccount.click();
+  }
+
 }

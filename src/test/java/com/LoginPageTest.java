@@ -40,8 +40,9 @@ public class LoginPageTest extends TestBase {
     loginpage.inputPassword(passwordPositive);
     loginpage.clickOnEnterButton();
     loginpage.currentPageCheckByTitle(mainPage, 60);
-  }
+    loginpage.userNameCheck(userName);
 
+  }
   @Test(groups = {"LoginTests", "PositiveTests"}, priority = 1)
   public void loginPositiveRememberCheckBoxTest() throws AWTException {
     loginpage.inputLogin(loginPositive);
@@ -49,8 +50,10 @@ public class LoginPageTest extends TestBase {
     loginpage.checkInRememberMe();
     loginpage.clickOnEnterButton();
     loginpage.currentPageCheckByTitle(mainPage, 60);
-    loginpage.openNewTab(baseUrl);
+    loginpage.openSiteInNewTab(baseUrl);
     loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.userNameCheck(userName);
+
   }
 
   @Test(groups = {"LoginTests", "NegativeTests"}, priority = 2)
@@ -71,14 +74,38 @@ public class LoginPageTest extends TestBase {
     loginpage.currentPageCheckByTitle(loginPage, 60);
   }
 
+// enter positive login & password, don't check in rememberMe checkBox, click on Enter  Button.
+// Open new tab, open site there, expect something wrong. But everything is O'key
   @Test(groups = {"LoginTests", "Negative"}, priority = 1)
   public void loginNegativeRememberCheckBoxTest() throws AWTException {
     loginpage.inputLogin(loginPositive);
     loginpage.inputPassword(passwordPositive);
     loginpage.clickOnEnterButton();
     loginpage.currentPageCheckByTitle(mainPage, 60);
-    loginpage.openNewTab(baseUrl);
+    loginpage.openSiteInNewTab(baseUrl);
     loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.userNameCheck(userName);
+  }
+
+// enter positive login & password, click on Another Account Button, expect error message
+  @Test(groups = {"LoginTests", "NegativeTests"}, priority = 2)
+  public void loginNegativeAnotherAccountTest(){
+    loginpage.inputLogin(loginPositive);
+    loginpage.inputPassword(passwordPositive);
+    loginpage.clickOnAnotherAccountButton();
+    loginpage.errorMessageCheck();
+    loginpage.currentPageCheckByTitle(loginPage, 0);
+  }
+
+// enter positive login & password, click on Current Account Button, expect error message
+//  I don't know, but I think it can work on different browsers at the same time
+  @Test(groups = {"LoginTests", "NegativeTests"}, priority = 1)
+  public void loginNegativeCurrentAccountTest(){
+    loginpage.inputLogin(loginPositive);
+    loginpage.inputPassword(passwordPositive);
+    loginpage.clickOnCurrentAccountButton();
+    loginpage.errorMessageCheck();
+    loginpage.currentPageCheckByTitle(loginPage, 0);
   }
 
   @AfterMethod

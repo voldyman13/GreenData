@@ -5,7 +5,6 @@
   <artifactId>GreenData</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-
   <properties>
     <maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
     <aspectj.version>1.8.10</aspectj.version>
@@ -16,9 +15,7 @@
     <allure.results.directory>target/${release.number}/allure-results_${timestamp}</allure.results.directory>
     <allure.report.directory>target/${release.number}/allure-results_${timestamp}/allure-report</allure.report.directory>
   </properties>
-
   <dependencies>
-
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
@@ -28,11 +25,6 @@
       <groupId>io.qameta.allure</groupId>
       <artifactId>allure-testng</artifactId>
       <version>${allure-testng.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.aspectj</groupId>
-      <artifactId>aspectjweaver</artifactId>
-      <version>${aspectj.version}</version>
     </dependency>
     <dependency>
       <groupId>ru.stqa.selenium</groupId>
@@ -49,9 +41,12 @@
       <artifactId>htmlunit-driver</artifactId>
       <version>2.36.0</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjweaver</artifactId>
+      <version>${aspectj.version}</version>
+    </dependency>
   </dependencies>
-
   <build>
     <resources>
       <resource>
@@ -65,9 +60,7 @@
         <filtering>true</filtering>
       </testResource>
     </testResources>
-
     <plugins>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-resources-plugin</artifactId>
@@ -76,10 +69,10 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
-
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
+        <version>${maven-surefire-plugin.version}</version>
         <configuration>
           <argLine>-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"</argLine>
           <systemProperties>
@@ -97,7 +90,6 @@
           </dependency>
         </dependencies>
       </plugin>
-
       <plugin>
         <groupId>io.qameta.allure</groupId>
         <artifactId>allure-maven</artifactId>
@@ -106,7 +98,6 @@
           <reportVersion>2.6.0</reportVersion>
         </configuration>
       </plugin>
-
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
@@ -115,13 +106,18 @@
           <target>1.8</target>
         </configuration>
       </plugin>
-
+      <plugin>
+         <groupId>io.qameta.allure</groupId>
+         <artifactId>allure-maven</artifactId>
+         <version>2.9</version>
+         <configuration>
+            <reportVersion>2.6.0</reportVersion>
+         </configuration>
+      </plugin>
     </plugins>
   </build>
-
   <!-- profiles -->
   <profiles>
-
     <!-- browsers -->
     <profile>
       <id>firefox</id>
