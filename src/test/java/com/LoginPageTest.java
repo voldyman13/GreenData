@@ -31,7 +31,7 @@ public class LoginPageTest extends TestBase {
 
   @Test(groups = {"LoginPageTests", "PositiveTests", "InterfaceTests"}, priority = 1)
   public void loginPageTitleTest(){
-    loginpage.rightPageConfirmation(loginPage);
+    loginpage.currentPageCheckByTitle(loginPage, 60);
   }
 
   @Test(groups = {"LoginTests", "PositiveTests"}, priority = 0)
@@ -39,21 +39,18 @@ public class LoginPageTest extends TestBase {
     loginpage.inputLogin(loginPositive);
     loginpage.inputPassword(passwordPositive);
     loginpage.clickOnEnterButton();
-    loginpage.waitUntilPageIsLoaded(60, mainPage);
-    loginpage.rightPageConfirmation(mainPage);
+    loginpage.currentPageCheckByTitle(mainPage, 60);
   }
 
   @Test(groups = {"LoginTests", "PositiveTests"}, priority = 1)
-  public void loginPositiveRememberCheckBoxTest() {
+  public void loginPositiveRememberCheckBoxTest() throws AWTException {
     loginpage.inputLogin(loginPositive);
     loginpage.inputPassword(passwordPositive);
-//    loginpage.markCheckboxRemember();
+    loginpage.checkInRememberMe();
     loginpage.clickOnEnterButton();
-    loginpage.waitUntilPageIsLoaded(60, mainPage);
-    loginpage.rightPageConfirmation(mainPage);
-    loginpage.openSite(baseUrl);
-    loginpage.waitUntilPageIsLoaded(60, mainPage);
-    loginpage.rightPageConfirmation(mainPage);
+    loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.openNewTab(baseUrl);
+    loginpage.currentPageCheckByTitle(mainPage, 60);
   }
 
   @Test(groups = {"LoginTests", "NegativeTests"}, priority = 2)
@@ -62,7 +59,7 @@ public class LoginPageTest extends TestBase {
     loginpage.inputPassword(passwordNegative);
     loginpage.clickOnEnterButton();
     loginpage.errorMessageCheck();
-    loginpage.rightPageConfirmation(loginPage);
+    loginpage.currentPageCheckByTitle(loginPage, 0);
   }
 
   @Test(groups = {"LoginTests", "NegativeTests"}, priority = 2)
@@ -71,19 +68,17 @@ public class LoginPageTest extends TestBase {
     loginpage.inputPassword(passwordPositive);
     loginpage.clickOnEnterButton();
     loginpage.errorMessageCheck();
-    loginpage.rightPageConfirmation(loginPage);
+    loginpage.currentPageCheckByTitle(loginPage, 60);
   }
 
-  @Test(groups = {"LoginTests", "Negative"}, priority = 2)
+  @Test(groups = {"LoginTests", "Negative"}, priority = 1)
   public void loginNegativeRememberCheckBoxTest() throws AWTException {
     loginpage.inputLogin(loginPositive);
     loginpage.inputPassword(passwordPositive);
     loginpage.clickOnEnterButton();
-    loginpage.waitUntilPageIsLoaded(60, mainPage);
-    loginpage.rightPageConfirmation(mainPage);
+    loginpage.currentPageCheckByTitle(mainPage, 60);
     loginpage.openNewTab(baseUrl);
-    loginpage.waitUntilPageIsLoaded(60, mainPage);
-    loginpage.rightPageConfirmation(mainPage);
+    loginpage.currentPageCheckByTitle(mainPage, 60);
   }
 
   @AfterMethod

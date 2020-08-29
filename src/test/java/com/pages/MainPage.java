@@ -6,6 +6,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class MainPage extends PageBase {
 
@@ -31,17 +34,10 @@ public class MainPage extends PageBase {
     @Step
     public void Logout(){ logOut.click(); }
 
-
     @Step
-    public void waitUntilLoginPageIsLoaded(int timeout){waitUntilElementVisibilityOf(greenDataLogo, timeout); }
-
-
-    public void waitUntilMainPageIsLoaded(int timeout){
-        waitUntilElementIsClickable(userIcon, timeout); }
-
-    public boolean mainPageConfirmation(){ return userIcon.isEnabled(); }
-
-
-
-
+    public void currentPageCheckByLogo(String pageTitle, int timeout) {
+        WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
+        wait.until(ExpectedConditions.visibilityOf(greenDataLogo));
+        Assert.assertEquals(getTitle(), pageTitle, "It is not right page");
+    }
 }

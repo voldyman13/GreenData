@@ -23,18 +23,16 @@ public class MainPageTest extends TestBase {
         loginpage.openSite(baseUrl);
     }
 
-// This section only for practice  and it is not needed for the test -----------------------
+// This section only for practice  and it is not needed for this task  -----------------------
     @Test(groups = {"MainPageTests", "PositiveTests"}, priority = 0)
     public void logoutPositiveTest(){
         loginpage.inputLogin(loginPositive);
         loginpage.inputPassword(passwordPositive);
         loginpage.clickOnEnterButton();
-        loginpage.waitUntilPageIsLoaded(60, mainPage);
-        loginpage.rightPageConfirmation(mainPage);
+        loginpage.currentPageCheckByTitle(mainPage, 60);
         mainpage.openUserMenu();
         mainpage.Logout();
-        mainpage.waitUntilLoginPageIsLoaded(60);
-        loginpage.rightPageConfirmation(loginPage);
+        mainpage.currentPageCheckByLogo(loginPage, 60);
     }
 
 }

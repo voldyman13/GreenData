@@ -56,16 +56,19 @@ public abstract class PageBase {
 
     @Step
     public void waitUntilPageIsLoaded(int timeout, String pageTitle) {
-        WebDriverWait wait = new WebDriverWait(driver, 60, 1000);
+        WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
         wait.until(ExpectedConditions.titleContains(pageTitle));
     }
 
 
     @Step
-    public void rightPageConfirmation(String pageTitle){
+    public void currentPageCheckByTitle(String pageTitle, int timeout){
+        WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
+        wait.until(ExpectedConditions.titleContains(pageTitle));
         Assert.assertEquals(getTitle(), pageTitle, "It is not right page");
     }
 
+    @Step
     public void getText() {
     }
 

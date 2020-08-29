@@ -9,6 +9,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import java.awt.*;
@@ -23,6 +25,7 @@ public class LoginPage extends PageBase {
   @FindBy(how = How.TAG_NAME, using = "h1")
   @CacheLookup
   public WebElement header;
+
   @FindBy(id = "username")
   private WebElement loginField;
   @FindBy(id = "password")
@@ -54,7 +57,7 @@ public class LoginPage extends PageBase {
   public void inputPassword(String password){ type(passwordField, password); }
 
   @Step
-  public void markCheckboxRemember(){rememberCheckbox.click(); }
+  public void checkInRememberMe(){rememberCheckbox.click(); }
 
   @Step
   public void clickOnEnterButton(){ enterButton.click(); }
@@ -81,5 +84,11 @@ public class LoginPage extends PageBase {
     ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
     driver.switchTo().window(tabs.get(1));
     driver.get(url);
+  }
+
+  @Step
+  public void waitUntilElementIsClickable(WebElement element, int timeout) {
+    WebDriverWait wait = new WebDriverWait(driver, timeout);
+    wait.until(ExpectedConditions.elementToBeClickable(element));
   }
 }
