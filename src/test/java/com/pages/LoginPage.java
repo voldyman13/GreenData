@@ -14,9 +14,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
-/**
- * Sample page
- */
 public class LoginPage extends PageBase {
 
   @FindBy(how = How.TAG_NAME, using = "h1")

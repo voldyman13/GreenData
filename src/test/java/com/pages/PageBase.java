@@ -7,9 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-/**
- * Abstract class representation of a Page in the UI. Page object pattern
- */
 public abstract class PageBase {
 
     protected WebDriver driver;
@@ -42,25 +39,6 @@ public abstract class PageBase {
         } else return false;
     }
 
-//    @Step
-//    public void waitUntilElementVisibilityOf(WebElement element, int timeout) {
-//        WebDriverWait wait = new WebDriverWait(driver, timeout);
-//        wait.until(ExpectedConditions.visibilityOf(element));
-//    }
-
-//    @Step
-//    public void waitUntilElementIsClickable(WebElement element, int timeout) {
-//        WebDriverWait wait = new WebDriverWait(driver, timeout);
-//        wait.until(ExpectedConditions.elementToBeClickable(element));
-//    }
-
-//    @Step
-//    public void waitUntilPageIsLoaded(int timeout, String pageTitle) {
-//        WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
-//        wait.until(ExpectedConditions.titleContains(pageTitle));
-//    }
-
-
     @Step("Title: {value}")
     public void currentPageCheckByTitle(String value, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
@@ -68,7 +46,4 @@ public abstract class PageBase {
         Assert.assertEquals(getTitle(), value, "It is not right page");
     }
 
-//    @Step
-//    public void getText() {
-//    }
 }

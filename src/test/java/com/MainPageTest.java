@@ -23,7 +23,7 @@ public class MainPageTest extends TestBase {
         loginpage.openSite(baseUrl);
     }
 
-// This section only for practice  and it is not needed for this task  -----------------------
+// This section is for practice only, not for a specific task.  -----------------------
     @Test(groups = {"MainPageTests", "PositiveTests"}, priority = 0)
     public void logoutPositiveTest(){
         loginpage.inputLogin(loginPositive);
