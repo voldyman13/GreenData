@@ -34,10 +34,10 @@ public class MainPage extends PageBase {
     @Step
     public void Logout(){ logOut.click(); }
 
-    @Step
-    public void currentPageCheckByLogo(String pageTitle, int timeout) {
+    @Step("Title: {value}")
+    public void currentPageCheckByLogo(String value, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
         wait.until(ExpectedConditions.visibilityOf(greenDataLogo));
-        Assert.assertEquals(getTitle(), pageTitle, "It is not right page");
+        Assert.assertEquals(getTitle(), value, "It is not right page");
     }
 }

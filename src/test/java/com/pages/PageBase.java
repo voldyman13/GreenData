@@ -61,14 +61,14 @@ public abstract class PageBase {
 //    }
 
 
-    @Step
-    public void currentPageCheckByTitle(String pageTitle, int timeout) {
+    @Step("Title: {value}")
+    public void currentPageCheckByTitle(String value, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
-        wait.until(ExpectedConditions.titleContains(pageTitle));
-        Assert.assertEquals(getTitle(), pageTitle, "It is not right page");
+        wait.until(ExpectedConditions.titleContains(value));
+        Assert.assertEquals(getTitle(), value, "It is not right page");
     }
 
-    @Step
-    public void getText() {
-    }
+//    @Step
+//    public void getText() {
+//    }
 }

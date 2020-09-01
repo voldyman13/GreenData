@@ -46,19 +46,19 @@ public class LoginPage extends PageBase {
     super(webDriver);
   }
 
-  @Step
-  public void openSite(String url) {
-    driver.get(url);
+  @Step("url: {value}")
+  public void openSite(String value) {
+    driver.get(value);
   }
 
   @Step("Enter login: {value}")
-  public void inputLogin(String username) {
-    type(loginField, username);
+  public void inputLogin(String value) {
+    type(loginField, value);
   }
 
   @Step("Enter password: {value}")
-  public void inputPassword(String password) {
-    type(passwordField, password);
+  public void inputPassword(String value) {
+    type(passwordField, value);
   }
 
   @Step
@@ -77,11 +77,10 @@ public class LoginPage extends PageBase {
     Assert.assertTrue(check);
   }
 
-  @Step
-  public void userNameCheck(String username) {
+  @Step("User: {value}")
+  public void userNameCheck(String value) {
     String user = userName.getText();
-    System.out.println("User: " + userName.getText());
-    Assert.assertEquals(user, username, "Wrong user name");
+    Assert.assertEquals(user, value, "Wrong user name");
   }
 
   @Step
