@@ -21,7 +21,7 @@ public class MainPage extends PageBase {
     private WebElement greenDataLogo;
     @FindBy(className ="svg-bg-path")
     private WebElement userIcon;
-    @FindBy(className ="username-section")
+    @FindBy(className ="username-wrapper")
     private WebElement userMenu;
     @FindBy(xpath = "//ul[1]/li[8]")
     private WebElement logOut;

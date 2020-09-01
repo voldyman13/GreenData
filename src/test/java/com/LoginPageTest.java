@@ -1,6 +1,8 @@
 package com;
 
 import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -12,6 +14,8 @@ import java.awt.*;
 public class LoginPageTest extends TestBase {
   private LoginPage loginpage;
   private MainPage mainpage;
+//  private static Logger logger = LoggerFactory.getLogger(LoginPageTest.class);
+  Logger logger = LoggerFactory.getLogger(LoginPageTest.class);
 
   String baseUrl = "https://gdcloud.ru/release-17/";
   String loginPositive = "tester";
@@ -31,7 +35,9 @@ public class LoginPageTest extends TestBase {
 
   @Test(groups = {"LoginPageTests", "PositiveTests", "InterfaceTests"}, priority = 1)
   public void loginPageTitleTest(){
+    logger.info("Start test: loginPageTitleTest()");
     loginpage.currentPageCheckByTitle(loginPage, 60);
+    logger.info("Stop test: loginPageTitleTest()");
   }
 
   @Test(groups = {"LoginTests", "PositiveTests"}, priority = 0)
@@ -53,7 +59,6 @@ public class LoginPageTest extends TestBase {
     loginpage.openSiteInNewTab(baseUrl);
     loginpage.currentPageCheckByTitle(mainPage, 60);
     loginpage.userNameCheck(userName);
-
   }
 
   @Test(groups = {"LoginTests", "NegativeTests"}, priority = 2)
@@ -78,6 +83,17 @@ public class LoginPageTest extends TestBase {
 // Open new tab, open site there, expect something wrong. But everything is O'key
   @Test(groups = {"LoginTests", "Negative"}, priority = 1)
   public void loginNegativeRememberCheckBoxTest() throws AWTException {
+    loginpage.inputLogin(loginPositive);
+    loginpage.inputPassword(passwordPositive);
+    loginpage.clickOnEnterButton();
+    loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.openSiteInNewTab(baseUrl);
+    loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.userNameCheck(userName);
+  }
+
+  @Test(groups = {"LoginTests", "Negative"}, priority = 1)
+  public void loginPositiveRememberCheckBox1Test() throws AWTException {
     loginpage.inputLogin(loginPositive);
     loginpage.inputPassword(passwordPositive);
     loginpage.clickOnEnterButton();

@@ -42,27 +42,27 @@ public abstract class PageBase {
         } else return false;
     }
 
-    @Step
-    public void waitUntilElementVisibilityOf(WebElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(driver, timeout);
-        wait.until(ExpectedConditions.visibilityOf(element));
-    }
+//    @Step
+//    public void waitUntilElementVisibilityOf(WebElement element, int timeout) {
+//        WebDriverWait wait = new WebDriverWait(driver, timeout);
+//        wait.until(ExpectedConditions.visibilityOf(element));
+//    }
+
+//    @Step
+//    public void waitUntilElementIsClickable(WebElement element, int timeout) {
+//        WebDriverWait wait = new WebDriverWait(driver, timeout);
+//        wait.until(ExpectedConditions.elementToBeClickable(element));
+//    }
+
+//    @Step
+//    public void waitUntilPageIsLoaded(int timeout, String pageTitle) {
+//        WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
+//        wait.until(ExpectedConditions.titleContains(pageTitle));
+//    }
+
 
     @Step
-    public void waitUntilElementIsClickable(WebElement element, int timeout) {
-        WebDriverWait wait = new WebDriverWait(driver, timeout);
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    @Step
-    public void waitUntilPageIsLoaded(int timeout, String pageTitle) {
-        WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
-        wait.until(ExpectedConditions.titleContains(pageTitle));
-    }
-
-
-    @Step
-    public void currentPageCheckByTitle(String pageTitle, int timeout){
+    public void currentPageCheckByTitle(String pageTitle, int timeout) {
         WebDriverWait wait = new WebDriverWait(driver, timeout, 500);
         wait.until(ExpectedConditions.titleContains(pageTitle));
         Assert.assertEquals(getTitle(), pageTitle, "It is not right page");
@@ -71,5 +71,4 @@ public abstract class PageBase {
     @Step
     public void getText() {
     }
-
 }

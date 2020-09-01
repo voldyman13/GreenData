@@ -4,6 +4,7 @@
   <test name="Test1">
     <classes>
       <class name="com.LoginPageTest"/>
+      <class name="com.MainPageTest"/>
     </classes>
   </test>  
 </suite>
