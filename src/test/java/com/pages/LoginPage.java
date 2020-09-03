@@ -93,12 +93,6 @@ public class LoginPage extends PageBase {
   }
 
   @Step
-  public void waitUntilElementIsClickable(WebElement element, int timeout) {
-    WebDriverWait wait = new WebDriverWait(driver, timeout);
-    wait.until(ExpectedConditions.elementToBeClickable(element));
-  }
-
-  @Step
   public void clickOnAnotherAccountButton() {
     anotherAccount.click();
   }
