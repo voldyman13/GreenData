@@ -36,7 +36,7 @@ public class LoginPageTest extends TestBase {
   @Test(groups = {"LoginPageTests", "PositiveTests", "InterfaceTests"}, priority = 1)
   public void loginPageTitleTest(){
     logger.info("Start test: loginPageTitleTest()");
-    loginpage.currentPageCheckByTitle(loginPage, 60);
+    loginpage.currentPageCheckByTitle(loginPage, 10);
     logger.info("Stop test: loginPageTitleTest()");
   }
 
@@ -45,7 +45,7 @@ public class LoginPageTest extends TestBase {
     loginpage.inputLogin(loginPositive);
     loginpage.inputPassword(passwordPositive);
     loginpage.clickOnEnterButton();
-    loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.currentPageCheckByTitle(mainPage, 10);
     loginpage.userNameCheck(userName);
 
   }
@@ -55,9 +55,9 @@ public class LoginPageTest extends TestBase {
     loginpage.inputPassword(passwordPositive);
     loginpage.checkInRememberMe();
     loginpage.clickOnEnterButton();
-    loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.currentPageCheckByTitle(mainPage, 10);
     loginpage.openSiteInNewTab(baseUrl);
-    loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.currentPageCheckByTitle(mainPage, 10);
     loginpage.userNameCheck(userName);
   }
 
@@ -76,7 +76,7 @@ public class LoginPageTest extends TestBase {
     loginpage.inputPassword(passwordPositive);
     loginpage.clickOnEnterButton();
     loginpage.errorMessageCheck();
-    loginpage.currentPageCheckByTitle(loginPage, 60);
+    loginpage.currentPageCheckByTitle(loginPage, 10);
   }
 
 // enter positive login & password, don't check in rememberMe checkBox, click on Enter  Button.
@@ -86,9 +86,9 @@ public class LoginPageTest extends TestBase {
     loginpage.inputLogin(loginPositive);
     loginpage.inputPassword(passwordPositive);
     loginpage.clickOnEnterButton();
-    loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.currentPageCheckByTitle(mainPage, 10);
     loginpage.openSiteInNewTab(baseUrl);
-    loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.currentPageCheckByTitle(mainPage, 10);
     loginpage.userNameCheck(userName);
   }
 
@@ -97,9 +97,9 @@ public class LoginPageTest extends TestBase {
     loginpage.inputLogin(loginPositive);
     loginpage.inputPassword(passwordPositive);
     loginpage.clickOnEnterButton();
-    loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.currentPageCheckByTitle(mainPage, 50);
     loginpage.openSiteInNewTab(baseUrl);
-    loginpage.currentPageCheckByTitle(mainPage, 60);
+    loginpage.currentPageCheckByTitle(mainPage, 10);
     loginpage.userNameCheck(userName);
   }
 

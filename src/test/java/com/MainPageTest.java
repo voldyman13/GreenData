@@ -29,10 +29,10 @@ public class MainPageTest extends TestBase {
         loginpage.inputLogin(loginPositive);
         loginpage.inputPassword(passwordPositive);
         loginpage.clickOnEnterButton();
-        loginpage.currentPageCheckByTitle(mainPage, 60);
+        loginpage.currentPageCheckByTitle(mainPage, 30);
         mainpage.openUserMenu();
         mainpage.Logout();
-        mainpage.currentPageCheckByLogo(loginPage, 60);
+        mainpage.currentPageCheckByLogo(loginPage, 300);
     }
 
 }
