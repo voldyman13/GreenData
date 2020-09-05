@@ -3,6 +3,7 @@ package com;
 import com.pages.LoginPage;
 import com.pages.MainPage;
 import org.openqa.selenium.support.PageFactory;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -24,8 +25,9 @@ public class MainPageTest extends TestBase {
     }
 
 // This section is for practice only, not for a specific task.  -----------------------
-    @Test(groups = {"MainPageTests", "PositiveTests"}, priority = 0)
+    @Test(groups = {"MainPageTests", "Positive"}, priority = 0)
     public void logoutPositiveTest(){
+        loginpage.openSite(baseUrl);
         loginpage.inputLogin(loginPositive);
         loginpage.inputPassword(passwordPositive);
         loginpage.clickOnEnterButton();
@@ -34,5 +36,8 @@ public class MainPageTest extends TestBase {
         mainpage.Logout();
         mainpage.currentPageCheckByLogo(loginPage, 300);
     }
-
+    @AfterMethod(alwaysRun= true)
+    public void TearDown(){
+        mainpage.stop();
+    }
 }
