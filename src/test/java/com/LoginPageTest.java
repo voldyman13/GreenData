@@ -1,6 +1,6 @@
 package com;
 
-import com.pages.Image;
+import com.images.Image;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -25,7 +25,7 @@ public class LoginPageTest extends TestBase {
   String passwordNegative = "12345678";
   String loginPage = "WorkFlow";
   String mainPage = "Лента - WorkFlow";
-  String userName = "Скворцофф А. И. (Jinior QA. Dptt)";
+  String userName = "Булкин А. И. (QA. Dptt)";
   String loginPageImg = "loginPageImg.jpg";
   String loginPositiveImg = "loginPositiveImg.jpg";
   String passwordNegativeImg = "passwordNegativeImg.jpg";
@@ -36,7 +36,7 @@ public class LoginPageTest extends TestBase {
   String mouseOnCurrentAccountButtonImg = "mouseOnCurrentAccountButtonImg.jpg";
   String mouseOnAnotherAccountButtonImg = "mouseOnAnotherAccountButtonImg.jpg";
   String errorWarningImg = "errorWarningImg.jpg";
-  String fillOutLoginImg = "fillOutLoginImg.jpg";
+  String fillOutLoginImg = "fillOutLoginImg001.jpg";
   String fillOutPasswordImg = "fillOutPasswordImg.jpg";
 
   @FindBy(className = "login-logo")
@@ -51,6 +51,8 @@ public class LoginPageTest extends TestBase {
   private WebElement currentAccount;
   @FindBy(id = "error")
   private WebElement errorWarning;
+  @FindBy(className = "login")
+  private WebElement centralBlock;
 
   @BeforeMethod(alwaysRun = true)
   public void initPageObjects() {
@@ -177,7 +179,37 @@ public class LoginPageTest extends TestBase {
     loginpage.currentPageCheckByTitle(loginPage, 10);
   }
 
-// enter positive login & password, don't check in rememberMe checkBox, click on Enter  Button.
+  @Test(groups = {"LoginTests", "Negative"}, priority = 2)
+  public void loginNegativeEmptyFieldsTest()  {
+    loginpage.openSite(baseUrl);
+    loginpage.clickOnEnterButton();
+    loginpage.currentPageCheckByTitle(loginPage, 60);
+    image.readElementAndSave("centralBlock.png", "png");
+//    image.readImgAndCompare(fillOutLoginImg);
+    loginpage.currentPageCheckByTitle(loginPage, 10);
+  }
+
+
+    @Test(groups = {"LoginTests", "Negative"}, priority = 2)
+    public void loginNegativeEmptyPasswordFieldTest()  {
+      loginpage.openSite(baseUrl);
+      loginpage.inputLogin(loginPositive);
+      loginpage.clickOnEnterButton();
+      image.readImgAndCompare(fillOutPasswordImg);
+      loginpage.currentPageCheckByTitle(loginPage, 10);
+    }
+
+    @Test(groups = {"LoginTests", "Negative"}, priority = 2)
+    public void loginNegativeEmptyLoginFieldTest()  {
+      loginpage.openSite(baseUrl);
+      loginpage.inputPassword(passwordNegative);
+      loginpage.clickOnEnterButton();
+      image.readImgAndCompare(fillOutLoginImg);
+      loginpage.currentPageCheckByTitle(loginPage, 10);
+    }
+
+
+    // enter positive login & password, don't check in rememberMe checkBox, click on Enter  Button.
 // Open new tab, open site there, expect something wrong. But everything is O'key
   @Test(groups = {"LoginTests", "Negative"}, priority = 1)
   public void loginNegativeRememberCheckBoxTest() throws AWTException {

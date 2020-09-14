@@ -1,6 +1,8 @@
 package com.pages;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.CacheLookup;
@@ -10,6 +12,8 @@ import org.testng.Assert;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 public class LoginPage extends PageBase {
 
@@ -36,9 +40,11 @@ public class LoginPage extends PageBase {
     @FindBy(id = "userName")
     private WebElement userName;
 
-    public LoginPage(WebDriver webDriver) { super(webDriver); }
+    public LoginPage(WebDriver webDriver) {
+        super(webDriver);
+    }
 
-    @Step("url: {value}")
+    @Step("openSite: {value}")
     public void openSite(String value) {
         driver.get(value);
     }
@@ -61,7 +67,7 @@ public class LoginPage extends PageBase {
     @Step
     public void clickOnEnterButton() {
         enterButton.click();
-    }
+   }
 
     @Step
     public void clickOnAnotherAccountButton() {
@@ -79,22 +85,39 @@ public class LoginPage extends PageBase {
         Assert.assertTrue(check);
     }
 
-    @Step("User: {value}")
+    @Step("userNameCheck: {value}")
     public void userNameCheck(String value) {
         String user = userName.getText();
         Assert.assertEquals(user, value, "Wrong user name");
     }
 
-    @Step("url: {value}")
+    @Step("openSiteInNewTab: {value}")
     public void openSiteInNewTab(String value) throws AWTException {
-        Robot robot = new Robot();
-        robot.keyPress(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_T);
-        robot.keyRelease(KeyEvent.VK_CONTROL);
-        robot.keyRelease(KeyEvent.VK_T);
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
-        driver.get(value);
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_T);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+            robot.keyRelease(KeyEvent.VK_T);
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(1));
+            driver.get(value);
+        } catch (AWTException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
+    public void popUpMessageCheck() {
+        String message = "";
+        Set<String> handles = driver.getWindowHandles();
+        for (String handle : handles) {
+            driver.switchTo().window(handle);
+        try {
+            Alert alert = driver.switchTo().alert();
+            message = alert.getText();
+        } catch (NoAlertPresentException e) {
+        }
+        System.out.println("message: " + message);
+        }
+    }
 }

@@ -1,5 +1,6 @@
-package com.pages;
+package com.images;
 
+import com.pages.PageBase;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,6 +13,7 @@ import ru.yandex.qatools.ashot.AShot;
 import ru.yandex.qatools.ashot.Screenshot;
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
 import ru.yandex.qatools.ashot.comparison.ImageDiffer;
+import ru.yandex.qatools.ashot.coordinates.WebDriverCoordsProvider;
 import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -34,6 +36,9 @@ public class Image extends PageBase {
     private WebElement loginField;
     @FindBy(id = "password")
     private WebElement passwordField;
+    @FindBy(className = "login")
+    private WebElement centralBlock;
+
 
     public Image(WebDriver webDriver) {
         super(webDriver);
@@ -69,23 +74,45 @@ public class Image extends PageBase {
         action.moveToElement(currentAccount).perform();
     }
 
-    @Step
-    public void readImgAndSave(String filename, String format) throws IOException {
-        String fileName = "C:/Users/User/Documents/GitHub/GreenData/images/" + filename;
+    @Step("Save: {value}")
+    public void readImgAndSave(String value, String format){
+        String fileName = "./src/test/java/com/images/loginPageImages/" + value;
         Screenshot screenshot = new AShot().shootingStrategy(ShootingStrategies
                 .viewportPasting(3000)).takeScreenshot(driver);
-        ImageIO.write(screenshot.getImage(), format, new File(fileName));
+        try {
+            ImageIO.write(screenshot.getImage(), format, new File(fileName));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
-    @Step
-    public void readImgAndCompare(String filename) throws IOException {
-        String fileName = "C:/Users/User/Documents/GitHub/GreenData/images/" + filename;
+    @Step("Save: {value}")
+    public void readElementAndSave(String value, String format){
+        String fileName = "./src/test/java/com/images/loginPageImages/" + value;
+        Screenshot screenshot = new AShot().coordsProvider(new WebDriverCoordsProvider())
+                .takeScreenshot(driver, centralBlock);
+        try {
+            ImageIO.write(screenshot.getImage(), format, new File(fileName));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
+
+    @Step("Read: {value}")
+    public void readImgAndCompare(String value){
+        String fileName = "./src/test/java/com/images/loginPageImages/" + value;
         Screenshot elementScreenshot = new AShot().takeScreenshot(driver);
         BufferedImage actualImage = elementScreenshot.getImage();
-        BufferedImage expectedImage = ImageIO.read(new File(fileName));
-        ImageDiffer imgDiff = new ImageDiffer();
-        ImageDiff diff = imgDiff.makeDiff(actualImage, expectedImage);
-        Assert.assertTrue(diff.hasDiff(), "The image differs from the standard");
+        try {
+            BufferedImage expectedImage = ImageIO.read(new File(fileName));
+            ImageDiffer imgDiff = new ImageDiffer();
+            ImageDiff diff = imgDiff.makeDiff(actualImage, expectedImage);
+            Assert.assertTrue(diff.hasDiff(), "The image differs from the standard");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
 }
